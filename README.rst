@@ -13,8 +13,8 @@ boofuzz: Network Protocol Fuzzing for Humans
     :target: https://gitter.im/jtpereyda/boofuzz?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
 
 Boofuzz is a fork of and the successor to the venerable `Sulley`_ fuzzing
-framework. Besides numerous bug fixes, boofuzz aims for extensibility.
-The goal: fuzz everything.
+framework. Besides numerous bug fixes, boofuzz aims for extensibility,
+with the eventual goal of being able to fuzz anything fuzzable.
 
 Why?
 ----
@@ -34,13 +34,11 @@ Like Sulley, boofuzz incorporates all the critical elements of a fuzzer:
 
 Unlike Sulley, boofuzz also features:
 
--  Online `documentation`_.
+-  Much easier install experience!
 -  Support for arbitrary communications mediums.
 -  Built-in support for serial fuzzing, ethernet- and IP-layer, UDP broadcast.
--  Better recording of test data -- consistent, thorough, clear.
--  Test result CSV export.
 -  *Extensible* instrumentation/failure detection.
--  Much easier install experience!
+-  Better recording of test data -- consistent, thorough, clear.
 -  Far fewer bugs.
 
 Sulley is affectionately named after the giant teal and purple creature
@@ -62,22 +60,22 @@ Installation
 Boofuzz installs as a Python library used to build fuzzer scripts. See
 `INSTALL.rst`_ for advanced and detailed instructions.
 
+Getting Started
+---------------
 
-Documentation
--------------
-
-Documentation is available at http://boofuzz.readthedocs.io/, including nifty quickstart guides.
+No quickstart guide is available yet, but in the meantime you can use
+this `Sulley FTP example`_ as a baseline.
 
 Contributions
 -------------
 
 Pull requests are welcome, as boofuzz is actively maintained (at the
-time of this writing ;)). See `CONTRIBUTING.rst`_.
+time of this writing ;)).
 
-Community
----------
+Support
+-------
 
-For questions that take the form of “How do I… with boofuzz?” or “I got
+If your question takes the form of “How do I… with boofuzz?” or “I got
 this error with boofuzz, why?”, consider posting your question on Stack
 Overflow. Make sure to use the ``fuzzing`` tag.
 
@@ -89,9 +87,8 @@ For other questions, check out boofuzz on `gitter`_ or `Google Groups`_.
 For updates, follow `@fuzztheplanet`_ on Twitter.
 
 .. _Sulley: https://github.com/OpenRCE/sulley
+.. _INSTALL.rst: INSTALL.rst
+.. _Sulley FTP example: https://www.securepla.net/fuzzing-101-with-sulley/
 .. _Google Groups: https://groups.google.com/d/forum/boofuzz
 .. _gitter: https://gitter.im/jtpereyda/boofuzz
 .. _@fuzztheplanet: https://twitter.com/fuzztheplanet
-.. _documentation: http://boofuzz.readthedocs.io/
-.. _INSTALL.rst: INSTALL.rst
-.. _CONTRIBUTING.rst: CONTRIBUTING.rst
