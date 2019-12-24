@@ -1,4 +1,5 @@
 import collections
+from random import random
 
 from .block import Block
 from .. import exception, helpers
@@ -27,6 +28,8 @@ class Request(IFuzzable):
         self._mutant_index = 0  # current mutation index.
         self._element_mutant_index = None  # index of current mutant element within self.stack
         self.mutant = None  # current primitive being mutated.
+
+        self.constraints = []
 
     @property
     def name(self):
@@ -83,7 +86,22 @@ class Request(IFuzzable):
         if mutated:
             self._mutant_index += 1
 
+        self.check_constraints()
+
         return mutated
+
+    def add_constraint(self, target, args, func, prob):
+        self.constraints.append((target, args, func, prob))
+
+    
+    def check_constraints(self):
+        for target, args, func, prob in self.constraints:
+            if random() < prob:
+                arg_vals = []
+                for arg in args:
+                    arg_vals.append(self.names[arg].render())
+                ret_val = func(*arg_vals)
+                self.names[target]._value = ret_val
 
     def skip_element(self):
         self.stack[self._element_mutant_index].reset()

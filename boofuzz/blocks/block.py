@@ -137,14 +137,15 @@ class Block(IFuzzable):
 
         # if this block is dependant on another field, then manually update that fields value appropriately while we
         # mutate this block. we'll restore the original value of the field prior to continuing.
-        if mutated and self.dep:
-            # if a list of values was specified, use the first item in the list.
-            if self.dep_values:
-                self.request.names[self.dep]._value = self.dep_values[0]
+        if mutated:
+            if self.dep:
+                # if a list of values was specified, use the first item in the list.
+                if self.dep_values:
+                    self.request.names[self.dep]._value = self.dep_values[0]
 
-            # if a list of values was not specified, assume a single value is present.
-            else:
-                self.request.names[self.dep]._value = self.dep_value
+                # if a list of values was not specified, assume a single value is present.
+                else:
+                    self.request.names[self.dep]._value = self.dep_value
 
         # we are done mutating this block.
         if not mutated:
@@ -155,6 +156,7 @@ class Block(IFuzzable):
                 self.request.names[self.dep].reset()
 
         return mutated
+
 
     def num_mutations(self):
         """
@@ -182,6 +184,10 @@ class Block(IFuzzable):
         @type item: BasePrimitive | Block | boofuzz.blocks.size.Size | boofuzz.blocks.repeat.Repeat
         @param item: Some primitive/block/etc.
         """
+
+        if isinstance(item, BasePrimitive):
+            if item.name != None:
+                self.items[item.name] = item
 
         self.stack.append(item)
 
