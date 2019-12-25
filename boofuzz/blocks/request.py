@@ -96,12 +96,15 @@ class Request(IFuzzable):
     
     def check_constraints(self):
         for target, args, func, prob in self.constraints:
-            if random() < prob:
-                arg_vals = []
-                for arg in args:
-                    arg_vals.append(self.names[arg].render())
-                ret_val = func(*arg_vals)
-                self.names[target]._value = ret_val
+            try:
+                if random() < prob:
+                    arg_vals = []
+                    for arg in args:
+                        arg_vals.append(self.names[arg].render())
+                    ret_val = func(*arg_vals)
+                    self.names[target]._value = ret_val
+            except:
+                pass
 
     def skip_element(self):
         self.stack[self._element_mutant_index].reset()

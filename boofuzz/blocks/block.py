@@ -184,11 +184,7 @@ class Block(IFuzzable):
         @type item: BasePrimitive | Block | boofuzz.blocks.size.Size | boofuzz.blocks.repeat.Repeat
         @param item: Some primitive/block/etc.
         """
-
-        if isinstance(item, BasePrimitive):
-            if item.name != None:
-                self.items[item.name] = item
-
+        
         self.stack.append(item)
 
     def render(self):

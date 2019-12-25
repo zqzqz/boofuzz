@@ -8,9 +8,7 @@ from protocol import DiscoveryProtocol
 def main():
     session = Session(target=Target(connection=UDPSocketConnection("127.0.0.1", 30303)))
     p = DiscoveryProtocol(session)
-    for i in range(3):
-        s_mutate()
-        print(s_render())
+    session.fuzz()
 
 
 if __name__ == "__main__":

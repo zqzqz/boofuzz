@@ -56,3 +56,8 @@ docs/_build/
 # Misc
 archived_fuzzies/*.session
 boofuzz-results/
+
+
+*.log
+*.out
+/eth/boofuzz-results
