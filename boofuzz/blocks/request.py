@@ -4,7 +4,7 @@ from random import random
 from .block import Block
 from .. import exception, helpers
 from ..ifuzzable import IFuzzable
-
+import rlp
 
 class Request(IFuzzable):
     def __init__(self, name):
@@ -30,6 +30,7 @@ class Request(IFuzzable):
         self.mutant = None  # current primitive being mutated.
 
         self.constraints = []
+        self.encoding = None
 
     @property
     def name(self):
@@ -93,7 +94,9 @@ class Request(IFuzzable):
     def add_constraint(self, target, args, func, prob):
         self.constraints.append((target, args, func, prob))
 
-    
+    def add_encoding(self, args, func):
+        self.encoding = (args, func)
+
     def check_constraints(self):
         for target, args, func, prob in self.constraints:
             try:
@@ -169,8 +172,18 @@ class Request(IFuzzable):
 
         self._rendered = b""
 
-        for item in self.stack:
-            self._rendered += item.render()
+        if self.encoding is None:
+            for item in self.stack:
+                self._rendered += item.render()
+        else:
+            try:
+                args, func = self.encoding
+                arg_vals = []
+                for arg in args:
+                    arg_vals.append(self.names[arg].render())
+                self._rendered += func(*arg_vals)
+            except:
+                pass
 
         return helpers.str_to_bytes(self._rendered)
 

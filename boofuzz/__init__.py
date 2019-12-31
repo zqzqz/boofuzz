@@ -204,6 +204,16 @@ def s_constraint(target, args, func, prob):
     """
     return blocks.CURRENT.add_constraint(target, args, func, prob)
 
+def s_encoding(args, func):
+    """
+    Set contrains on properties of a block request
+
+    :type  agrs:        list of str
+    :param args:        Name of dependent fields
+    :type  func:        Function Pointer
+    :param func:        Function pointer with args as arguments and target as return value
+    """
+    return blocks.CURRENT.add_encoding(args, func)
 
 def s_mutate():
     """
