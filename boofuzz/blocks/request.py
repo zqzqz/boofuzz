@@ -91,21 +91,17 @@ class Request(IFuzzable):
 
         return mutated
 
-    def add_constraint(self, target, args, func, prob):
-        self.constraints.append((target, args, func, prob))
+    def add_constraint(self, func, prob):
+        self.constraints.append((func, prob))
 
-    def add_encoding(self, args, func):
-        self.encoding = (args, func)
+    def add_encoding(self, func):
+        self.encoding = func
 
     def check_constraints(self):
-        for target, args, func, prob in self.constraints:
+        for func, prob in self.constraints:
             try:
                 if random() < prob:
-                    arg_vals = []
-                    for arg in args:
-                        arg_vals.append(self.names[arg].render())
-                    ret_val = func(*arg_vals)
-                    self.names[target]._value = ret_val
+                    func(self.names)
             except:
                 pass
 
@@ -177,13 +173,9 @@ class Request(IFuzzable):
                 self._rendered += item.render()
         else:
             try:
-                args, func = self.encoding
-                arg_vals = []
-                for arg in args:
-                    arg_vals.append(self.names[arg].render())
-                self._rendered += func(*arg_vals)
-            except:
-                pass
+                self._rendered += self.encoding(self.names)
+            except Exception as e:
+                raise exception.SullyRuntimeError("RENDER ENCODING FAILED: %s" % self.name)
 
         return helpers.str_to_bytes(self._rendered)
 

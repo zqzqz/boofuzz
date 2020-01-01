@@ -104,6 +104,7 @@ __all__ = [
     "s_hex_dump",
     "s_initialize",
     "s_constraint",
+    "s_encoding",
     "s_int",
     "s_intelword",
     "s_lego",
@@ -189,31 +190,25 @@ def s_initialize(name):
     blocks.CURRENT = blocks.REQUESTS[name]
 
 
-def s_constraint(target, args, func, prob):
+def s_constraint(func, prob=1):
     """
     Set contrains on properties of a block request
 
-    :type  target:      str
-    :param target:      Name of the target field
-    :type  agrs:        list of str
-    :param args:        Name of dependent fields
     :type  func:        Function Pointer
-    :param func:        Function pointer with args as arguments and target as return value
+    :param func:        Function pointer with a primitive map as the argument and no return value
     :type  prob:        float
     :param prob:        (Optional, def=1) Probability of checking this constraint
     """
     return blocks.CURRENT.add_constraint(target, args, func, prob)
 
-def s_encoding(args, func):
+def s_encoding(func):
     """
     Set contrains on properties of a block request
 
-    :type  agrs:        list of str
-    :param args:        Name of dependent fields
     :type  func:        Function Pointer
-    :param func:        Function pointer with args as arguments and target as return value
+    :param func:        Function pointer with a primitive map as the argument and encoded package context as return value
     """
-    return blocks.CURRENT.add_encoding(args, func)
+    return blocks.CURRENT.add_encoding(func)
 
 def s_mutate():
     """

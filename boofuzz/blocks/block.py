@@ -252,6 +252,28 @@ class Block(IFuzzable):
             if item.fuzzable:
                 item.reset()
 
+    def walk(self, stack=None):
+        """
+        Recursively walk through and yield every primitive and block on the request stack.
+
+        @param stack: Set to none -- used internally by recursive calls.
+                      If None, uses self.stack.
+
+        @rtype:  Sulley Primitives
+        @return: Sulley Primitives
+        """
+
+        if not stack:
+            stack = self.stack
+
+        for item in stack:
+            # if the item is a block, step into it and continue looping.
+            if isinstance(item, Block):
+                for stack_item in self.walk(item.stack):
+                    yield stack_item
+            else:
+                yield item
+
     def __repr__(self):
         return "<%s %s>" % (self.__class__.__name__, self.name)
 
