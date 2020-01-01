@@ -199,7 +199,7 @@ def s_constraint(func, prob=1):
     :type  prob:        float
     :param prob:        (Optional, def=1) Probability of checking this constraint
     """
-    return blocks.CURRENT.add_constraint(target, args, func, prob)
+    return blocks.CURRENT.add_constraint(func, prob)
 
 def s_encoding(func):
     """
